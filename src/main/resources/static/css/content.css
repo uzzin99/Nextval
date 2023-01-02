@@ -1,0 +1,76 @@
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0 auto;
+    background-color: black;
+    font-family: 'NanumSquareNeo-Variable';
+}
+
+#wrap {
+    width: 1200px;
+    margin: 0 auto;
+    /* background-color: aqua; */
+}
+
+/* 네비바 */
+#nav {
+    height: 30px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    /* background-color: rgb(40, 20, 66); */
+    margin-top: 10px;
+    /* position: fixed; */
+    margin-bottom: 20px;
+}
+
+#nav div {
+    float: left;
+}
+
+#searchBar {
+    margin-left: 25%;
+}
+
+#searchBar input {
+    font-size: 16px;
+    border-radius: 5px;
+    height: 25px;
+}
+
+#searchBar button {
+    font-size: 16px;
+    border-radius: 5px;
+    height: 31px;
+}
+
+#home div {
+    margin-left: 20px;
+}
+
+#home a {
+    font-weight: bold;
+    text-decoration: none;
+    color: rgba(159, 157, 157, 0.925);
+    font-size: 14px;
+}
+
+/* content */
+
+#content {
+
+}
+
+.bxslider {
+    border:0;background:#fbfbfb;box-shadow:none;
+}
+
+.bxslider img {
+    width: 1200px;
+    height: 500px;
+}

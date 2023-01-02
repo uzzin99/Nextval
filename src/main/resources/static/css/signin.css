@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'NanumSquareNeo-Variable';
+}
+
+#wrap {
+    background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.8)),
+    url('https://assets.nflxext.com/ffe/siteui/vlv3/5e48e7b6-350d-48d9-96d6-de8ca173c89f/730cfed9-99b6-475f-8d64-2917128b6624/KR-ko-20221219-popsignuptwoweeks-perspective_alpha_website_medium.jpg') no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    min-height: 100vh;
+
+}
+
+#content {
+    margin: 0 auto;
+    text-align: center;
+    color: aliceblue;
+    width: 35%;
+    height: 400px;
+    background-color: rgba(0,0,0,0.7);
+    padding:100px 0;
+    border-radius: 10px;
+}
+
+#content a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.ex {
+    color: rgba(159, 157, 157, 0.925);
+}
+
+.logo {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#login {
+    width: 150px;
+    height: 40px;
+    background-color: #e50914;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#login2 {
+    width: 300px;
+    height: 40px;
+    background-color: #fff;
+    color: rgb(36, 32, 32);
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
