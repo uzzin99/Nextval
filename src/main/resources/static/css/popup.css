@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0 auto;
+    background-color: black;
+    font-family: 'NanumSquareNeo-Variable';
+    color: #fff;
+}
+
+#wrap {
+}
+
+#wraap {
+    /*background: linear-gradient(rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.8)),
+    src("/image/movie2.jfif") no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    min-height: 100vh;*/
+    margin: 0 auto;
+    width: 70%;
+}
+
+#movie {
+    margin: 0 auto;
+}
+
+#review {
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.type {
+    font-size: 15px;
+    font-weight: lighter;
+    margin-left: 10px;
+
+}

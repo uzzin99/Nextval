@@ -1,14 +1,18 @@
 package com.example.nextval.controller;
 
 import com.example.nextval.entity.Member;
+import com.example.nextval.entity.Movie;
 import com.example.nextval.service.NextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -17,7 +21,7 @@ public class MainController {
     private NextService nextService;
 
     //메인화면
-    @GetMapping("/")
+    @GetMapping("/next/main")
     public String main() {
         return "main";
     }
@@ -42,29 +46,52 @@ public class MainController {
     }
 
     //로그인
-    @GetMapping("next/login")
+    @GetMapping("/next/login")
     public String nextLogin() {
 
         return "login";
     }
 
-    @PostMapping("next/loginpro")
+    @PostMapping("/next/loginpro")
     public String nextLoginPro(Member member, Model model, HttpServletRequest request) {
-        System.out.println(member);
+
+        HttpSession session =request.getSession();
 
         member = nextService.loginUser(member.getUserid(),member.getUserpwd());
-        if(member != null) {
 
-            model.addAttribute("username",member.getUsername());
+        if(session.getAttribute("username") != null) {
+
+//            model.addAttribute("username",member.getUsername());
+
+            model.addAttribute("userid",session.getAttribute("userid"));
+            model.addAttribute("id",session.getAttribute("id"));
+            model.addAttribute("userpwd",session.getAttribute("userpwd"));
+            model.addAttribute("username",session.getAttribute("username"));
+            
+            session.setAttribute("signIn", member);
 
             return "content";
         }
+
         return "login";
     }
 
-    @PostMapping("next/content")
-    public String nextContent() {
+    @GetMapping("/next/content")
+    public String nextContent(Model model, Integer id) {
+
+        model.addAttribute("list",nextService.contentList());
+
 
         return "content";
     }
+
+    @GetMapping("/next/popup") // next/popup?id=1
+    public String nextPopup(Model model, Integer id) {
+
+        model.addAttribute("movie",nextService.nextPopup(id));
+
+        return "popup";
+    }
+
+
 }

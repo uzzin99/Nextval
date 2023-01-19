@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>팝업</title>
+    <link href="/css/popup.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrap">
+    <div id="wraap">
+        <div id="movie">
+            <h1 th:text="${movie.title}"></h1>
+            <h3>평점 <span th:text="${movie.mark}"></span>  <span class="type">· 액션/ 모험/ SF/ 스릴러</span></h3>
+            <h4 th:text="${movie.open}"></h4>
+            <div th:text="${movie.explain}"></div>
+        </div>
+        <div id="review">
+            <h2>한 줄 리뷰</h2>
+            <h3><span>총 4건</span> / <span>평점 3.8</span></h3>
+            <h3 style="margin-bottom: 50px;">평점: ⭐⭐⭐⭐⭐ <input type="text"><input type="button" value="입력하기"></h3>
+            <h3>사용자 평</h3>
+            <div id="userReview">
+                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>
+                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>
+                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
