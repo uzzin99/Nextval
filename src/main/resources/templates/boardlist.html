@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글리스트페이스</title>
+    <link href="/css/boardList.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrap">
+        <h2>자유게시판</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="board: ${list}">
+                    <td th:text="${board.id}"></td>
+                    <td><a th:text="${board.title}" th:href="@{/next/board/view(id=${board.id})}"></a></td>
+                    <td th:text="${board.userid}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

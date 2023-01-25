@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글작성</title>
+    <link href="/css/boardModify.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrap">
+    <div id="boardform">
+        <h2 style="margin-top: 30px;">자유게시판</h2>
+        <form th:action="@{/next/board/update/{id}(id = ${board.id})}" method="post">
+            <input name="title" type="text" class="title" th:value="${board.title}">
+            <input name="userid" th:value="${board.userid}" readonly>
+            <input name="date" type="date" id="now_date">
+            <textarea name="content" class="content" th:text="${board.content}"></textarea>
+            <button type="submit">수정</button>
+        </form>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    document.getElementById('now_date').valueAsDate = new Date();
+</script>
+</html>

@@ -1,7 +1,9 @@
 package com.example.nextval.service;
 
+import com.example.nextval.entity.Board;
 import com.example.nextval.entity.Member;
 import com.example.nextval.entity.Movie;
+import com.example.nextval.repository.BoardRepository;
 import com.example.nextval.repository.MemberRepository;
 import com.example.nextval.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ public class NextService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
+    //회원가입,로그인
     public void write(Member member) {
 
         memberRepository.save(member);
@@ -24,21 +30,36 @@ public class NextService {
 
     public Member loginUser(String userid, String userpwd) {
         Member member = memberRepository.selectUserInfo(userid,userpwd);
-        System.out.println(member);
+        //System.out.println(member);
         return member;
     }
 
-    //슬라이드 이미지 처리
+    //컨텐츠
     public List<Movie> contentList() {
 
         return movieRepository.findAll();
 
     }
-    //슬라이드 이미지 클릭 시 view 처리
+
     public Movie nextPopup(Integer id) {
 
         return movieRepository.findById(id).get();
     }
 
+    //게시판
+    public void boardWrite(Board board) {
+
+        boardRepository.save(board);
+    }
+
+    public List<Board> boardList() {
+
+        return boardRepository.findAll();
+    }
+
+    public Board boardView(Integer id) {
+
+        return boardRepository.findById(id).get();
+    }
 
 }

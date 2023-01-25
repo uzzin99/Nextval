@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+    <link href="/css/boardView.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrap">
+        <h2>자유게시판</h2>
+        <div class="table">
+            <div class="title" th:text="${board.title}"></div>
+            <div class="name">
+                <span th:text="${board.userid}"></span>
+                <span th:text="${board.date}"></span>
+            </div>
+            <div class="content" th:text="${board.content}"></div>
+            <a th:href="@{/next/board/modify/{id}(id = ${board.id})}">수정</a>
+        </div>
+    </div>
+</body>
+</html>
