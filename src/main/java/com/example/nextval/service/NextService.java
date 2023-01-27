@@ -7,6 +7,8 @@ import com.example.nextval.repository.BoardRepository;
 import com.example.nextval.repository.MemberRepository;
 import com.example.nextval.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,9 +54,14 @@ public class NextService {
         boardRepository.save(board);
     }
 
-    public List<Board> boardList() {
+    public Page<Board> boardList(Pageable pageable) {
 
-        return boardRepository.findAll();
+        return boardRepository.findAll(pageable);
+    }
+
+    public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {
+
+        return boardRepository.findByTitleContaining(searchKeyword, pageable);
     }
 
     public Board boardView(Integer id) {

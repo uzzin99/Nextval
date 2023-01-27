@@ -47,7 +47,7 @@
     <div id="home" style="float: right;">
       <div><a href="#">HOME</a></div>
       <div><a href="#">영화추천</a></div>
-      <div><a href="/next/board/list">게시판</a></div>
+      <div><a onclick=board()>게시판</a></div>
       <div><a href="#" th:text="${username}"></a></div>
     </div>
 
@@ -64,40 +64,47 @@
   <div id="content" style="margin-top: 30px;">
     <h3><span>화장한 날에는</span> 이 영화 어때요? 🌞</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}"><img class="listImg" th:src="${list.img}"></a></div>
+      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
 
     <div style="margin-bottom: 100px;"></div>
 
     <h3><span>설렘주의</span> 로맨스 ❤️</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}"><img class="listImg" th:src="${list.img}"></a></div>
+      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
 
     <div style="margin-bottom: 100px;"></div>
 
     <h3>감동이 있는 <span>애니메이션</span> 모음 🍭</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}"><img class="listImg" th:src="${list.img}"></a></div>
+      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
   </div>
 
 </div>
 </body>
-<script>
-$(document)
-.ready(function(){
-  $('.slider').bxSlider({
-      auto: false,
-      pause: 1000,
-      autoHover: true,
-      minSlides: 5,
-      maxSlides: 5,
-      slideWidth: 220,
-      slideMargin: 10,
-      pager: false,
-      touchEnabled : (navigator.maxTouchPoints > 0),
+<script th:inline="javascript">
+  $(document)
+  .ready(function(){
+    $('.slider').bxSlider({
+        auto: false,
+        pause: 1000,
+        autoHover: true,
+        minSlides: 5,
+        maxSlides: 5,
+        slideWidth: 220,
+        slideMargin: 10,
+        pager: false,
+        touchEnabled : (navigator.maxTouchPoints > 0),
+    });
   });
-});
+
+  function board(){
+    let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=700, top=0,left=0";
+
+    window.open("/next/board/list","_blank", options);
+  }
+
 </script>
 </html>

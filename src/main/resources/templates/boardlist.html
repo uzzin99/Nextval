@@ -8,6 +8,12 @@
 <body>
     <div id="wrap">
         <h2>자유게시판</h2>
+        <div class="write" style="text-align:center; margin-top: 20px; margin-bottom: 20px;">
+            <input type="button" value="글작성" onClick="location.href='/next/board/write'" th:if="${userid != null}"/>
+        </div>
+
+
+
         <table>
             <thead>
                 <tr>
@@ -24,6 +30,18 @@
                 </tr>
             </tbody>
         </table>
+
+        <div style="text-align:center; margin-top: 20px;">
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:if="${page != nowPage}" th:href="@{/next/board/list(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                <strong th:if="${page == nowPage}" th:text="${page}" style="color : white"></strong>
+            </th:block>
+            <form th:action="@{/next/board/list}" method="get">
+                <input type="text" name="searchKeyword">
+                <button type="submit">검색</button>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>

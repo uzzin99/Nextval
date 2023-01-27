@@ -6,6 +6,10 @@ import com.example.nextval.entity.Movie;
 import com.example.nextval.service.NextService;
 import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +42,6 @@ public class MainController {
         nextService.write(member);
 
         model.addAttribute("message", "회원가입이 완료되었습니다..");
-
         model.addAttribute("searchUrl", "/next/login");
 
         return "message";
@@ -78,6 +81,7 @@ public class MainController {
         model.addAttribute("list",nextService.contentList());
 
         String userid = (String) session.getAttribute("userid");
+
         model.addAttribute("username",session.getAttribute("username"));
 
         return "content";
@@ -103,19 +107,41 @@ public class MainController {
     }
 
     @PostMapping("/next/boardwritepro")
-    public String nextBoardWritePro(Board board){
+    public String nextBoardWritePro(Board board, Model model){
 
         nextService.boardWrite(board);
 
-        System.out.println(board);
+        model.addAttribute("message", "게시글 작성 완료");
+        model.addAttribute("searchUrl", "/next/board/list");
 
-        return "";
+        return "message";
     }
 
     @GetMapping("/next/board/list")
-    public String nextBoardList(Model model) {
+    public String nextBoardList(Model model, HttpServletRequest request,
+                                @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                String searchKeyword) {
 
-        model.addAttribute("list", nextService.boardList());
+        HttpSession session=request.getSession();
+
+        model.addAttribute("userid", session.getAttribute("userid"));
+
+        Page<Board> list= null;
+
+        if(searchKeyword == null) {
+            list = nextService.boardList(pageable);
+        } else  {
+            list = nextService.boardSearchList(searchKeyword, pageable);
+        }
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "boardlist";
     }
@@ -155,13 +181,17 @@ public class MainController {
 
             nextService.boardWrite(boardTemp);
 
+            model.addAttribute("message", "게시글 수정 완료");
+            model.addAttribute("searchUrl", "/next/board/list");
+
         } else {
 
-            System.out.println("실패");
+            model.addAttribute("message", "게시글 작성 실패");
+            model.addAttribute("searchUrl", "/next/board/list");
 
-            return "";
+            return "message";
         }
 
-        return "redirect:/next/board/list";
+        return "message";
     }
 }
