@@ -3,6 +3,7 @@ package com.example.nextval.controller;
 import com.example.nextval.entity.Board;
 import com.example.nextval.entity.Member;
 import com.example.nextval.entity.Movie;
+import com.example.nextval.entity.Review;
 import com.example.nextval.service.NextService;
 import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,12 +88,28 @@ public class MainController {
         return "content";
     }
 
+    // 영화 팝업창
     @GetMapping("/next/popup") // next/popup?id=1
-    public String nextPopup(Model model, Integer id) {
+    public String nextPopup(Model model, Integer id, HttpServletRequest request) {
+
+        HttpSession session=request.getSession();
+
+        model.addAttribute("userid",session.getAttribute("userid"));
 
         model.addAttribute("movie",nextService.nextPopup(id));
 
         return "popup";
+    }
+
+    @PostMapping("/next/popup/pro")
+    public String nextPopupPro(Review review, Model model) {
+
+        nextService.reviewWrite(review);
+
+        model.addAttribute("message", "리뷰 작성이 완료되었습니다.");
+        model.addAttribute("searchUrl", "/next/popup?id=${review.movieid}");
+
+        return "message";
     }
 
     // 게시판

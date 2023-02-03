@@ -3,9 +3,11 @@ package com.example.nextval.service;
 import com.example.nextval.entity.Board;
 import com.example.nextval.entity.Member;
 import com.example.nextval.entity.Movie;
+import com.example.nextval.entity.Review;
 import com.example.nextval.repository.BoardRepository;
 import com.example.nextval.repository.MemberRepository;
 import com.example.nextval.repository.MovieRepository;
+import com.example.nextval.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,8 @@ public class NextService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     //회원가입,로그인
     public void write(Member member) {
@@ -46,6 +50,11 @@ public class NextService {
     public Movie nextPopup(Integer id) {
 
         return movieRepository.findById(id).get();
+    }
+
+    public void reviewWrite(Review review) {
+
+        reviewRepository.save(review);
     }
 
     //게시판
