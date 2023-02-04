@@ -36,9 +36,49 @@ body {
     margin-top: 50px;
 }
 
+/*#userReview div {
+    margin-bottom: 20px;
+}*/
+
+#reviewtable td{
+    width:300px;
+}
+
+.user {
+    color: gray;
+}
+
 .type {
     font-size: 15px;
     font-weight: lighter;
     margin-left: 10px;
 
+}
+
+.star-rating {
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:1.5em;
+  justify-content:space-around;
+  /*padding:0 .2em;*/
+  text-align:center;
+  width:5em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
 }

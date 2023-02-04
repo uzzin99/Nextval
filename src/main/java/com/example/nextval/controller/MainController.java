@@ -98,18 +98,22 @@ public class MainController {
 
         model.addAttribute("movie",nextService.nextPopup(id));
 
+        model.addAttribute("list",nextService.reviewsList());
+
         return "popup";
     }
 
     @PostMapping("/next/popup/pro")
-    public String nextPopupPro(Review review, Model model) {
+    public String nextPopupPro(@RequestBody  Review review) {
+
+        /*System.out.println(review.getRating());
+        System.out.println(review.getMovieid());
+        System.out.println(review.getUserid());
+        System.out.println(review.getContent());*/
 
         nextService.reviewWrite(review);
 
-        model.addAttribute("message", "리뷰 작성이 완료되었습니다.");
-        model.addAttribute("searchUrl", "/next/popup?id=${review.movieid}");
-
-        return "message";
+        return "popup";
     }
 
     // 게시판

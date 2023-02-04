@@ -57,6 +57,11 @@ public class NextService {
         reviewRepository.save(review);
     }
 
+    public List<Review> reviewsList() {
+
+        return reviewRepository.findAll();
+    }
+
     //게시판
     public void boardWrite(Board board) {
 

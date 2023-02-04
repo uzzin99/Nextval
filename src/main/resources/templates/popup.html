@@ -6,33 +6,7 @@
     <link href="/css/popup.css" rel="stylesheet" type="text/css" />
 </head>
 <style>
-<!--.star-rating {
-  display:flex;
-  flex-direction: row-reverse;
-  font-size:1.5em;
-  justify-content:space-around;
-&lt;!&ndash;  padding:0 .2em;&ndash;&gt;
-  text-align:center;
-  width:5em;
-}
 
-.star-rating input {
-  display:none;
-}
-
-.star-rating label {
-  color:#ccc;
-  cursor:pointer;
-}
-
-.star-rating :checked ~ label {
-  color:#f90;
-}
-
-.star-rating label:hover,
-.star-rating label:hover ~ label {
-  color:#fc0;
-}-->
 </style>
 <body>
 <div id="wrap">
@@ -49,7 +23,47 @@
 <!--            <h3><span>총 4건</span> / <span>평점 3.8</span></h3>-->
 
             <h3 style="margin-bottom: 50px;">
-                <form action="/next/popup/pro" method="post" enctype="multipart/form-data">
+
+                <form>
+                    평점:
+                    <div class="star-rating">
+                        <input type="radio" id="5-stars" name="rating" value="5" />
+                        <label for="5-stars" class="star">&#9733;</label>
+                        <input type="radio" id="4-stars" name="rating" value="4" />
+                        <label for="4-stars" class="star">&#9733;</label>
+                        <input type="radio" id="3-stars" name="rating" value="3" />
+                        <label for="3-stars" class="star">&#9733;</label>
+                        <input type="radio" id="2-stars" name="rating" value="2" />
+                        <label for="2-stars" class="star">&#9733;</label>
+                        <input type="radio" id="1-star" name="rating" value="1" />
+                        <label for="1-star" class="star">&#9733;</label>
+                    </div>
+                    <input type="text" id="content" value="">
+                    <input type="text" id="userid" th:value="${userid}">
+                    <input type="text" id="movieid" th:value="${movie.id}">
+                </form>
+                <input type="button" id="button" value="입력하기" onClick="window.close()">
+
+
+                <!--평점:
+                <div class="star-rating">
+                    <input type="radio" id="5-stars" name="rating" value="5" />
+                    <label for="5-stars" class="star">&#9733;</label>
+                    <input type="radio" id="4-stars" name="rating" value="4" />
+                    <label for="4-stars" class="star">&#9733;</label>
+                    <input type="radio" id="3-stars" name="rating" value="3" />
+                    <label for="3-stars" class="star">&#9733;</label>
+                    <input type="radio" id="2-stars" name="rating" value="2" />
+                    <label for="2-stars" class="star">&#9733;</label>
+                    <input type="radio" id="1-star" name="rating" value="1" />
+                    <label for="1-star" class="star">&#9733;</label>
+                </div>
+                <input type="text" id="content" value="">
+                <input type="text" id="userid" th:value="${userid}">
+                <input type="text" id="movieid" th:value="${movie.id}">
+                <input type="button" id="button" value="입력하기"></button>-->
+
+                <!--<form action="/next/popup/pro" method="post" enctype="multipart/form-data">
                     평점:
                     <div class="star-rating">
                         <input type="radio" id="5-stars" name="rating" value="5" />
@@ -67,23 +81,35 @@
                     <input type="text" name="userid" th:value="${userid}">
                     <input type="text" name="movieid" th:value="${movie.id}">
                     <button type="submit">입력하기</button>
-                </form>
-
+                </form>-->
 
             </h3>
 
             <h3>사용자 평</h3>
-<!--            <div id="userReview">-->
-<!--                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>-->
-<!--                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>-->
-<!--                <div style="margin-bottom: 20px;">⭐⭐⭐⭐⭐ 재밋대요 <span>uuzin</span></div>-->
-<!--            </div>-->
+
+            <table border="1" id="reviewtable" th:each="list:${list}">
+                <tr>
+                    <td rowspan="2" th:text="${list.rating}"></td><td th:text="${list.content}"></td><td rowspan="2" th:text="${list.movieid}"
+                </tr>
+                <tr>
+                    <td th:text="${list.userid}" class="user"></td>
+                </tr>
+            </table>
+
+            <!--<div id="userReview" th:each="list:${list}">
+                <div>
+                    <span th:text="${list.rating}"></span>
+                    <span th:text="${list.content}"></span>
+                    <span th:text="${list.userid}" class="user"></span>
+                </div>
+            </div>-->
+
         </div>
 
     </div>
 </div>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script th:inline="javascript">
 $(document)
     $('#star a').click(function(){
@@ -91,5 +117,29 @@ $(document)
          $(this).addClass("on").prevAll("a").addClass("on");
          console.log($(this).attr("value"));
      });
+
+     $('#button').click(function(){
+
+        var data = {
+        movieid : $('#movieid').val(),
+        content : $('#content').val(),
+        rating : $('[name=rating]:checked').val(),
+        userid : $('#userid').val()
+    }
+
+    $.ajax({
+        <!--anyne: true,-->
+        url: "/next/popup/pro",
+        type: "POST",
+        contentType: 'application/json',
+        dataType: "json",
+        data: JSON.stringify(data),
+        success: function (data) {
+            console.log(data);
+        }
+    })
+
+    });
+
 </script>
 </html>
