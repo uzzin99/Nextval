@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -22,11 +23,11 @@ public class NextService {
     private MemberRepository memberRepository;
     @Autowired
     private MovieRepository movieRepository;
-
-    @Autowired
-    private BoardRepository boardRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private BoardRepository boardRepository;
+
 
     //회원가입,로그인
     public void write(Member member) {
@@ -47,6 +48,7 @@ public class NextService {
 
     }
 
+    //팝업
     public Movie nextPopup(Integer id) {
 
         return movieRepository.findById(id).get();
@@ -57,10 +59,14 @@ public class NextService {
         reviewRepository.save(review);
     }
 
-    public List<Review> reviewsList() {
+    public List<Review> reviewList(Integer id) {
 
-        return reviewRepository.findAll();
+        System.out.println(reviewRepository.selectReview(id));
+
+        return reviewRepository.selectReview(id);
     }
+
+
 
     //게시판
     public void boardWrite(Board board) {

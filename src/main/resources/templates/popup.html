@@ -23,7 +23,6 @@
 <!--            <h3><span>총 4건</span> / <span>평점 3.8</span></h3>-->
 
             <h3 style="margin-bottom: 50px;">
-
                 <form>
                     평점:
                     <div class="star-rating">
@@ -43,66 +42,19 @@
                     <input type="text" id="movieid" th:value="${movie.id}">
                 </form>
                 <input type="button" id="button" value="입력하기" onClick="window.close()">
-
-
-                <!--평점:
-                <div class="star-rating">
-                    <input type="radio" id="5-stars" name="rating" value="5" />
-                    <label for="5-stars" class="star">&#9733;</label>
-                    <input type="radio" id="4-stars" name="rating" value="4" />
-                    <label for="4-stars" class="star">&#9733;</label>
-                    <input type="radio" id="3-stars" name="rating" value="3" />
-                    <label for="3-stars" class="star">&#9733;</label>
-                    <input type="radio" id="2-stars" name="rating" value="2" />
-                    <label for="2-stars" class="star">&#9733;</label>
-                    <input type="radio" id="1-star" name="rating" value="1" />
-                    <label for="1-star" class="star">&#9733;</label>
-                </div>
-                <input type="text" id="content" value="">
-                <input type="text" id="userid" th:value="${userid}">
-                <input type="text" id="movieid" th:value="${movie.id}">
-                <input type="button" id="button" value="입력하기"></button>-->
-
-                <!--<form action="/next/popup/pro" method="post" enctype="multipart/form-data">
-                    평점:
-                    <div class="star-rating">
-                        <input type="radio" id="5-stars" name="rating" value="5" />
-                        <label for="5-stars" class="star">&#9733;</label>
-                        <input type="radio" id="4-stars" name="rating" value="4" />
-                        <label for="4-stars" class="star">&#9733;</label>
-                        <input type="radio" id="3-stars" name="rating" value="3" />
-                        <label for="3-stars" class="star">&#9733;</label>
-                        <input type="radio" id="2-stars" name="rating" value="2" />
-                        <label for="2-stars" class="star">&#9733;</label>
-                        <input type="radio" id="1-star" name="rating" value="1" />
-                        <label for="1-star" class="star">&#9733;</label>
-                    </div>
-                    <input type="text" name="content">
-                    <input type="text" name="userid" th:value="${userid}">
-                    <input type="text" name="movieid" th:value="${movie.id}">
-                    <button type="submit">입력하기</button>
-                </form>-->
-
             </h3>
 
             <h3>사용자 평</h3>
-
-            <table border="1" id="reviewtable" th:each="list:${list}">
-                <tr>
-                    <td rowspan="2" th:text="${list.rating}"></td><td th:text="${list.content}"></td><td rowspan="2" th:text="${list.movieid}"
-                </tr>
-                <tr>
-                    <td th:text="${list.userid}" class="user"></td>
-                </tr>
-            </table>
-
-            <!--<div id="userReview" th:each="list:${list}">
-                <div>
-                    <span th:text="${list.rating}"></span>
-                    <span th:text="${list.content}"></span>
-                    <span th:text="${list.userid}" class="user"></span>
-                </div>
-            </div>-->
+            <div style="width:100%; height:250px; overflow-y:scroll">
+                <table border="1" id="reviewtable" th:each="list:${list}" width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td rowspan="2" th:text="${list.rating}" style="width:30%"></td><td th:text="${list.content}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${list.userid}" class="user"></td>
+                    </tr>
+                </table>
+            </div>
 
         </div>
 
@@ -121,7 +73,7 @@ $(document)
      $('#button').click(function(){
 
         var data = {
-        movieid : $('#movieid').val(),
+        id : $('#movieid').val(),
         content : $('#content').val(),
         rating : $('[name=rating]:checked').val(),
         userid : $('#userid').val()

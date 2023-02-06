@@ -5,7 +5,6 @@ import com.example.nextval.entity.Member;
 import com.example.nextval.entity.Movie;
 import com.example.nextval.entity.Review;
 import com.example.nextval.service.NextService;
-import org.hibernate.type.StringNVarcharType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -98,13 +98,17 @@ public class MainController {
 
         model.addAttribute("movie",nextService.nextPopup(id));
 
-        model.addAttribute("list",nextService.reviewsList());
+        List<Review> list = nextService.reviewList(id);
+
+        System.out.println(list);
+
+        model.addAttribute("list",nextService.reviewList(id));
 
         return "popup";
     }
 
     @PostMapping("/next/popup/pro")
-    public String nextPopupPro(@RequestBody  Review review) {
+    public String nextPopupPro(@RequestBody Review review) {
 
         /*System.out.println(review.getRating());
         System.out.println(review.getMovieid());

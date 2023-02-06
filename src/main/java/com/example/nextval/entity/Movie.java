@@ -1,14 +1,16 @@
 package com.example.nextval.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Data
+@NoArgsConstructor
+
 public class Movie {
 
     @Id
@@ -23,4 +25,10 @@ public class Movie {
     private String explain;
     private String rated;
 
+
+
+
 }
+
+
+
