@@ -2,8 +2,10 @@ package com.example.nextval.controller;
 
 import com.example.nextval.entity.Board;
 import com.example.nextval.entity.Member;
-import com.example.nextval.entity.Movie;
 import com.example.nextval.entity.Review;
+import com.example.nextval.entity.Type;
+import com.example.nextval.repository.ReviewRepository;
+import com.example.nextval.repository.TypeRepository;
 import com.example.nextval.service.NextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,10 @@ public class MainController {
 
     @Autowired
     private NextService nextService;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
+    private TypeRepository typeRepository;
 
     // 메인화면
     @GetMapping("/next/main")
@@ -85,6 +91,10 @@ public class MainController {
 
         model.addAttribute("username",session.getAttribute("username"));
 
+        model.addAttribute("rList", nextService.typeList());
+
+        System.out.println(nextService.typeList());
+
         return "content";
     }
 
@@ -98,22 +108,22 @@ public class MainController {
 
         model.addAttribute("movie",nextService.nextPopup(id));
 
-        List<Review> list = nextService.reviewList(id);
-
-        System.out.println(list);
-
         model.addAttribute("list",nextService.reviewList(id));
+
+        model.addAttribute("count",reviewRepository.countReview(id));
+
+        model.addAttribute("avg",reviewRepository.avgReview(id));
+
+        model.addAttribute("type",typeRepository.selectType(id));
+
+        System.out.println(typeRepository.selectType(id));
+
 
         return "popup";
     }
 
     @PostMapping("/next/popup/pro")
     public String nextPopupPro(@RequestBody Review review) {
-
-        /*System.out.println(review.getRating());
-        System.out.println(review.getMovieid());
-        System.out.println(review.getUserid());
-        System.out.println(review.getContent());*/
 
         nextService.reviewWrite(review);
 

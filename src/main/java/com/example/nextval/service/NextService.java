@@ -1,19 +1,12 @@
 package com.example.nextval.service;
 
-import com.example.nextval.entity.Board;
-import com.example.nextval.entity.Member;
-import com.example.nextval.entity.Movie;
-import com.example.nextval.entity.Review;
-import com.example.nextval.repository.BoardRepository;
-import com.example.nextval.repository.MemberRepository;
-import com.example.nextval.repository.MovieRepository;
-import com.example.nextval.repository.ReviewRepository;
+import com.example.nextval.entity.*;
+import com.example.nextval.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -27,7 +20,8 @@ public class NextService {
     private ReviewRepository reviewRepository;
     @Autowired
     private BoardRepository boardRepository;
-
+    @Autowired
+    private TypeRepository typeRepository;
 
     //회원가입,로그인
     public void write(Member member) {
@@ -61,11 +55,13 @@ public class NextService {
 
     public List<Review> reviewList(Integer id) {
 
-        System.out.println(reviewRepository.selectReview(id));
-
         return reviewRepository.selectReview(id);
     }
 
+    public List<Movie> typeList() {
+
+        return movieRepository.contentList();
+    }
 
 
     //게시판

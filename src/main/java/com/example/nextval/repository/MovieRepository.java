@@ -12,5 +12,7 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository <Movie, Integer> {
 
+    /*@Query("SELECT b FROM next.type a, next.movie b where typename='로맨스' and a.id = b.id")
+    List<Movie> contentList();*/
 
 }

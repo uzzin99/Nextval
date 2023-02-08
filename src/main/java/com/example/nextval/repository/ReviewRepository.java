@@ -15,19 +15,15 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository  extends JpaRepository<Review, Integer> {
 
-    /*@Query(value = " SELECT a.*, b.* " +
-            " FROM next.review a, next.movie b " +
-            " WHERE a.id = :#{movie.id} ", nativeQuery = true)
-    List<Review> selectReview(@Param(value = id)Movie movie);*/
-
     @Query("select m from Review m where m.id= :id")
     List<Review> selectReview(@Param("id") Integer id);
 
-    /*List<Review> selectReview(Integer id);*/
+    @Query("SELECT COUNT(u) FROM Review u WHERE u.id=:id")
+    long countReview(@Param("id") Integer id);
 
-    /*@Query
-            (value = "select m " +
-                "from Review m " +
-                "where m.id = :id")
-    List<Review> selectReview(@Param("id") Integer id);*/
+    @Query("SELECT round(avg(u.rating),1) FROM Review u WHERE u.id=:id")
+    double avgReview(@Param("id") Integer id);
+
+
+
 }

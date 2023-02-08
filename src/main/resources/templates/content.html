@@ -72,14 +72,14 @@
 
     <div style="margin-bottom: 100px;"></div>
 
-    <h3><span>설렘주의</span> 로맨스 ❤️</h3>
+    <h3 th:each="type:${rList}"><span>설렘주의</span> <span class="yellow" th:if="${type.typename.toString().equals('로맨스')}"></span>️</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
+        <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
 
     <div style="margin-bottom: 100px;"></div>
 
-    <h3>감동이 있는 <span>애니메이션</span> 모음 🍭</h3>
+    <h3>감동이 있는 <span class="yellow">애니메이션</span> 모음 🍭</h3>
     <div class="slider">
       <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>

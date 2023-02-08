@@ -10,21 +10,25 @@
 </style>
 <body>
 <div id="wrap">
-    <div id="wraap">
+    <div id="wraap" style="margin-top:80px;">
         <div id="movie">
             <h1 th:text="${movie.title}"></h1>
-            <h3>평점 <span th:text="${movie.mark}"></span>  <span class="type">· 액션/ 모험/ SF/ 스릴러</span></h3>
+            <h3>
+                <span th:text="|평점 ${movie.mark}|"></span>
+                <block th:each="type:${type}">
+                    <span class="type" th:text="|${type.type}|"></span>
+                </block>
+            </h3>
             <h4 th:text="${movie.open}"></h4>
             <div th:text="${movie.explain}"></div>
         </div>
 
         <div id="review">
             <h2>한 줄 리뷰</h2>
-<!--            <h3><span>총 4건</span> / <span>평점 3.8</span></h3>-->
+            <h4><span th:text="|총 ${count}건|"></span> / <span th:text="|평점 ${avg}점|"></span></h4>
 
             <h3 style="margin-bottom: 50px;">
                 <form>
-                    평점:
                     <div class="star-rating">
                         <input type="radio" id="5-stars" name="rating" value="5" />
                         <label for="5-stars" class="star">&#9733;</label>
@@ -38,20 +42,25 @@
                         <label for="1-star" class="star">&#9733;</label>
                     </div>
                     <input type="text" id="content" value="">
-                    <input type="text" id="userid" th:value="${userid}">
-                    <input type="text" id="movieid" th:value="${movie.id}">
+                    <input type="hidden" id="userid" th:value="${userid}">
+                    <input type="hidden" id="movieid" th:value="${movie.id}">
                 </form>
                 <input type="button" id="button" value="입력하기" onClick="window.close()">
             </h3>
 
             <h3>사용자 평</h3>
             <div style="width:100%; height:250px; overflow-y:scroll">
-                <table border="1" id="reviewtable" th:each="list:${list}" width="100%" cellspacing="0" cellpadding="0">
+                <table id="reviewtable" th:each="list:${list}" width="100%" cellspacing="0" cellpadding="0">
                     <tr>
-                        <td rowspan="2" th:text="${list.rating}" style="width:30%"></td><td th:text="${list.content}"></td>
+                        <td rowspan="2" style="width:20%" th:if="${list.rating} == 1">⭐</td>
+                        <td rowspan="2" style="width:20%" th:if="${list.rating} == 2" value="**">⭐⭐</td>
+                        <td rowspan="2" style="width:20%" th:if="${list.rating} == 3" value="***">⭐⭐⭐</td>
+                        <td rowspan="2" style="width:20%" th:if="${list.rating} == 4" value="****">⭐⭐⭐⭐</td>
+                        <td rowspan="2" style="width:20%" th:if="${list.rating} == 5" value="*****">⭐⭐⭐⭐⭐</td>
+                        <td th:text="${list.content}" style="height:30px"></td>
                     </tr>
                     <tr>
-                        <td th:text="${list.userid}" class="user"></td>
+                        <td th:text="${list.userid}" class="user" style="height:5px"></td>
                     </tr>
                 </table>
             </div>
@@ -62,8 +71,10 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://htmlexplorer.com/2014/05/display-star-ratings-using-jquery-and.html"></script>
 <script th:inline="javascript">
 $(document)
+
     $('#star a').click(function(){
          $(this).parent().children("a").removeClass("on");
          $(this).addClass("on").prevAll("a").addClass("on");
