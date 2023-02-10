@@ -16,7 +16,7 @@
             <h3>
                 <span th:text="|평점 ${movie.mark}|"></span>
                 <block th:each="type:${type}">
-                    <span class="type" th:text="|${type.type}|"></span>
+                    <span class="type" th:text="|${type.typename}|"></span>
                 </block>
             </h3>
             <h4 th:text="${movie.open}"></h4>

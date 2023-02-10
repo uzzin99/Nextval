@@ -58,10 +58,10 @@ public class NextService {
         return reviewRepository.selectReview(id);
     }
 
-    public List<Movie> typeList() {
-
-        return movieRepository.contentList();
-    }
+//    public List<Movie> typeList() {
+//
+//        return movieRepository.contentList();
+//    }
 
 
     //게시판

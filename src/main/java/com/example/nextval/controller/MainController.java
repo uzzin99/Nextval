@@ -91,9 +91,9 @@ public class MainController {
 
         model.addAttribute("username",session.getAttribute("username"));
 
-        model.addAttribute("rList", nextService.typeList());
-
-        System.out.println(nextService.typeList());
+//        model.addAttribute("rList", nextService.typeList());
+//
+//        System.out.println(nextService.typeList());
 
         return "content";
     }
@@ -117,7 +117,6 @@ public class MainController {
         model.addAttribute("type",typeRepository.selectType(id));
 
         System.out.println(typeRepository.selectType(id));
-
 
         return "popup";
     }
