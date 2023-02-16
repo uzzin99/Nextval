@@ -21,7 +21,7 @@
   <!-- 네비바 -->
   <div id="nav" style="margin-top: 20px;">
 
-    <div>NEXTLEBE</div>
+    <div onclick="location.href='/next/content'">NEXTLEBE</div>
 
     <div style="float:left; margin-left:20px;">
       <select name="movieType" onchange="location.href=(this.value);">
@@ -43,21 +43,25 @@
     </div>
 
     <div id="searchBar" style="margin-left:15%;">
-      <div id="search"><input type="text" id="search" name="search" placeholder="Search"></div>
-      <div><button type="submit" id="searchButton">SEARCH</button></div>
+      <form action="/next/search" method="get" enctype="multipart/form-data">
+        <div id="search"><input type="text" id="search" name="keyword" placeholder="Search"></div>
+        <div><button type="submit" id="searchButton">SEARCH</button></div>
+      </form>
     </div>
 
     <div id="home" style="float: right;">
       <div><a href="#">HOME</a></div>
       <div><a href="#">영화추천</a></div>
       <div><a onclick=board()>게시판</a></div>
-      <div><a href="#" th:text="${username}"></a></div>
+      <div th:if="${username == null}"><a href="/next/login">로그인</a></div>
+      <div th:if="${username != null}"><a href="#" th:text="${username}"></a></div>
     </div>
 
   </div>
 
   <!-- 네비&콘텐츠 -->
   <div id="na_co" style="margin-top: 40px;">
+
     <div><img src="C:\Temp/movie1.jfif"></div>
   </div>
 
@@ -65,23 +69,23 @@
   <div style="margin-bottom: 100px;"></div>
 
   <div id="content" style="margin-top: 30px;">
-    <h3><span>화장한 날에는</span> 이 영화 어때요? 🌞</h3>
+    <h3><span class="yellow">화장한 날에는</span> 이 영화 어때요? 🌞</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
+      <div th:each="list:${actionList}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
 
     <div style="margin-bottom: 100px;"></div>
 
-    <h3 th:each="type:${rList}"><span>설렘주의</span> <span class="yellow" th:if="${type.typename.toString().equals('로맨스')}"></span>️</h3>
+    <h3>설렘주의 <span class="yellow">로맨스</span> ❤️</h3>
     <div class="slider">
-        <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
+        <div th:each="list:${romanceList}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
 
     <div style="margin-bottom: 100px;"></div>
 
     <h3>감동이 있는 <span class="yellow">애니메이션</span> 모음 🍭</h3>
     <div class="slider">
-      <div th:each="list:${list}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
+      <div th:each="list:${animationList}"><a th:href="@{/next/popup(id=${list.id})}" target='_blank'><img class="listImg" th:src="${list.img}"></a></div>
     </div>
   </div>
 
@@ -99,9 +103,12 @@
         slideWidth: 220,
         slideMargin: 10,
         pager: false,
+        randomStart: true,
         touchEnabled : (navigator.maxTouchPoints > 0),
     });
   });
+
+
 
   function board(){
     let options = "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=700, top=0,left=0";

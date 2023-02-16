@@ -1,9 +1,6 @@
 package com.example.nextval.controller;
 
-import com.example.nextval.entity.Board;
-import com.example.nextval.entity.Member;
-import com.example.nextval.entity.Review;
-import com.example.nextval.entity.Type;
+import com.example.nextval.entity.*;
 import com.example.nextval.repository.ReviewRepository;
 import com.example.nextval.repository.TypeRepository;
 import com.example.nextval.service.NextService;
@@ -85,17 +82,32 @@ public class MainController {
 
         HttpSession session=request.getSession();
 
-        model.addAttribute("list",nextService.contentList());
+        model.addAttribute("actionList",nextService.contentAction());
+
+        model.addAttribute("romanceList",nextService.contentRomance());
+
+        model.addAttribute("animationList",nextService.contentAnimation());
 
         String userid = (String) session.getAttribute("userid");
 
         model.addAttribute("username",session.getAttribute("username"));
 
-//        model.addAttribute("rList", nextService.typeList());
-//
-//        System.out.println(nextService.typeList());
 
         return "content";
+    }
+
+    @GetMapping("/next/search")
+    public String nextSearch(String keyword, Model model) {
+
+        List<Movie> searchList = nextService.searchList(keyword);
+
+        model.addAttribute("searchList", searchList);
+
+        System.out.println(searchList);
+
+        System.out.println(searchList.size());
+
+        return "search";
     }
 
     // 영화 팝업창
@@ -108,15 +120,24 @@ public class MainController {
 
         model.addAttribute("movie",nextService.nextPopup(id));
 
+        /*System.out.println(nextService.nextPopup(id));*/
+
         model.addAttribute("list",nextService.reviewList(id));
 
-        model.addAttribute("count",reviewRepository.countReview(id));
+        if (reviewRepository.countReview(id) == 0){
 
-        model.addAttribute("avg",reviewRepository.avgReview(id));
+            System.out.println("정보없음");
+
+        } else {
+
+            model.addAttribute("count",reviewRepository.countReview(id));
+
+            model.addAttribute("avg",reviewRepository.avgReview(id));
+        }
 
         model.addAttribute("type",typeRepository.selectType(id));
 
-        System.out.println(typeRepository.selectType(id));
+        /*System.out.println(typeRepository.selectType(id));*/
 
         return "popup";
     }

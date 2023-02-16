@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -36,10 +37,26 @@ public class NextService {
     }
 
     //컨텐츠
-    public List<Movie> contentList() {
+    public List<Movie> contentAction() {
 
-        return movieRepository.findAll();
+        return movieRepository.findAction();
+       /* return movieRepository.findAll();*/
 
+    }
+
+    public List<Movie> contentRomance(){
+
+        return movieRepository.findRomance();
+    }
+
+    public List<Movie> contentAnimation(){
+
+        return movieRepository.findAnimation();
+    }
+
+    public List<Movie> searchList(String keyword){
+
+        return movieRepository.findByTitleContaining(keyword);
     }
 
     //팝업
