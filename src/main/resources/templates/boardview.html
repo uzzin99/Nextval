@@ -13,10 +13,17 @@
             <div class="name">
                 <span>작성자:  </span><span th:text="${board.userid}"></span>
                 <span>작성일자:  </span><span th:text="${board.date}"></span>
+
+                <!--<a th:href="@{/next/board/modify/{id}(id = ${board.id})}">수정</a>-->
             </div>
             <div class="content" th:text="${board.content}"></div>
-            <a th:href="@{/next/board/modify/{id}(id = ${board.id})}">수정</a>
+            <block th:if="${board.userid==session.userid}">
+            <button type="button" th:onclick="|location.href='@{/next/board/modify/{id}(id = ${board.id})}'|" class="btn_click">수정</button>
+            </block>
         </div>
     </div>
 </body>
+<script>
+
+</script>
 </html>

@@ -23,6 +23,10 @@ h2 {
     margin-top: 50px;
 }
 
+/*a {
+    text-decoration-line: none;
+    color: white;
+}*/
 /*
 table {
     width:100%;
@@ -67,6 +71,10 @@ tr {
 .content {
     height: 350px;
     margin-top: 40px;
+    margin-left: 20px;
+}
+
+.btn_click {
     margin-left: 20px;
 }
 

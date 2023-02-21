@@ -35,3 +35,12 @@ tr {
     height: 35px;
 }
 
+a {
+    text-decoration-line: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: white;
+}

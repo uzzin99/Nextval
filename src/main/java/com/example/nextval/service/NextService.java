@@ -23,6 +23,8 @@ public class NextService {
     private BoardRepository boardRepository;
     @Autowired
     private TypeRepository typeRepository;
+    @Autowired
+    private TrailerRepository trailerRepository;
 
     //회원가입,로그인
     public void write(Member member) {
@@ -58,6 +60,7 @@ public class NextService {
 
         return movieRepository.findByTitleContaining(keyword);
     }
+
 
     //팝업
     public Movie nextPopup(Integer id) {

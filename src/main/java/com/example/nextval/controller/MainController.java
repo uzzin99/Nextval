@@ -2,6 +2,7 @@ package com.example.nextval.controller;
 
 import com.example.nextval.entity.*;
 import com.example.nextval.repository.ReviewRepository;
+import com.example.nextval.repository.TrailerRepository;
 import com.example.nextval.repository.TypeRepository;
 import com.example.nextval.service.NextService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class MainController {
     private ReviewRepository reviewRepository;
     @Autowired
     private TypeRepository typeRepository;
+    @Autowired
+    private TrailerRepository trailerRepository;
 
     // 메인화면
     @GetMapping("/next/main")
@@ -92,6 +95,7 @@ public class MainController {
 
         model.addAttribute("username",session.getAttribute("username"));
 
+        model.addAttribute("rand",trailerRepository.findTrailer());
 
         return "content";
     }
